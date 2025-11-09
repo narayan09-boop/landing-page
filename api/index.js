@@ -6,12 +6,11 @@ const cors = require('cors');
 const chatRoutes = require('./routes/chatRoutes');
 
 const app = express();
-const port = process.env.PORT || 3001; // Use 3001 as a default
+// const port = process.env.PORT || 3001; // Vercel handles this, so we don't need it
 
 // --- Middleware ---
 
 // Enable Cross-Origin Resource Sharing (CORS)
-// This allows your React frontend (on a different port) to call this backend
 app.use(cors());
 
 // Enable Express to parse JSON request bodies
@@ -21,7 +20,17 @@ app.use(express.json());
 // Tell Express to use your chat routes for any request starting with /api
 app.use('/api', chatRoutes);
 
-// --- Start Server ---
+// --- ADD THIS FOR VERCEL ---
+// This exports your app as a serverless function
+// Vercel will run this 'app'
+module.exports = app;
+
+
+// --- REMOVE THIS FOR VERCEL ---
+// You MUST remove this app.listen() block.
+// Vercel cannot run a server that is already trying to listen on a port.
+/*
 app.listen(port, () => {
-  console.log(`🚀 Appoint'd backend server is running on http://localhost:${port}`);
+  console.log(`🚀 Appoint'd backend server is running on http://localhost:${port}`);
 });
+*/
