@@ -5,7 +5,7 @@
   "type": "commonjs",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "chmod +x ./node_modules/.bin/vite && vite build",
     "start": "node api/index.js"
   },
   "dependencies": {
